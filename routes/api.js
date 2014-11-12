@@ -25,5 +25,19 @@ router.post('/', function(req, res){
     });
 });
 
+router.delete('/:todo_id', function(req, res){
+   Todo.remove({
+       _id: req.params.todo_id
+   }, function(err){
+       if(err) res.send(err);
+
+       Todo.find(function(err, todos){
+           if(err) res.send(err);
+
+           res.json(todos);
+       });
+   })
+});
+
 module.exports = router;
 
