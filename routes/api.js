@@ -11,6 +11,7 @@ router.get('/', function(req, res){
 });
 
 router.post('/', function(req, res){
+    console.log(req.body);
     Todo.create({
         text: req.body.text,
         done: false
@@ -37,6 +38,17 @@ router.delete('/:todo_id', function(req, res){
            res.json(todos);
        });
    })
+});
+
+router.put('/:todo_id', function(req, res){
+   Todo.findOneAndUpdate({
+       _id: req.params.todo_id
+   }, req.body, function(err, todo){
+       if(err) res.send(err);
+       res.json(todo);
+   })
+
+
 });
 
 module.exports = router;
